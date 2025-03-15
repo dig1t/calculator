@@ -36,7 +36,7 @@ export default function Calculator() {
       });
       setExpression(display);
       setDisplay(result);
-    } catch (error) {
+    } catch {
       setDisplay('Error');
     }
   };
