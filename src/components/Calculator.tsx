@@ -42,80 +42,79 @@ export default function Calculator() {
   };
 
   return (
-    <div className={`p-4 rounded-lg shadow-lg ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-800'}`}>
-      <div className={`mb-4 p-4 rounded shadow-inner ${isDarkMode ? 'bg-gray-700' : 'bg-white'}`}>
-        <div className={`text-sm h-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{expression}</div>
-        <div className="text-3xl font-bold">{display}</div>
+    <div className={`p-6 rounded-2xl shadow-2xl ${
+      isDarkMode 
+        ? 'bg-gray-800 text-white bg-opacity-90' 
+        : 'bg-white text-gray-800'
+    }`}>
+      <div className={`mb-6 p-6 rounded-xl ${
+        isDarkMode 
+          ? 'bg-gray-900' 
+          : 'bg-gray-50'
+      }`}>
+        <div className={`text-sm h-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          {expression}
+        </div>
+        <div className="text-4xl font-light tracking-wider text-right">
+          {display}
+        </div>
       </div>
       
-      <div className="grid grid-cols-4 gap-2 sm:gap-3">
-        <button onClick={handleClear} className="col-span-2 p-4 bg-red-500 text-white rounded hover:bg-red-600 text-lg sm:text-xl">
+      <div className="grid grid-cols-4 gap-3">
+        <button 
+          onClick={handleClear} 
+          className="col-span-2 p-4 bg-gradient-to-br from-red-400 to-red-500 text-white rounded-xl hover:from-red-500 hover:to-red-600 transition-all duration-200 text-lg font-medium shadow-lg shadow-red-500/20"
+        >
           AC
         </button>
-        <button onClick={() => handleOperator('/')} className="p-4 bg-orange-500 text-white rounded hover:bg-orange-600 text-lg sm:text-xl">
-          ÷
-        </button>
-        <button onClick={() => handleOperator('*')} className="p-4 bg-orange-500 text-white rounded hover:bg-orange-600 text-lg sm:text-xl">
-          ×
-        </button>
-        
-        {[7, 8, 9].map((num) => (
-          <button
-            key={num}
-            onClick={() => handleNumber(num.toString())}
-            className={`p-4 rounded hover:bg-gray-100 shadow-sm text-lg sm:text-xl ${
-              isDarkMode ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
-            }`}
+        {['÷', '×'].map((op) => (
+          <button 
+            key={op}
+            onClick={() => handleOperator(op === '÷' ? '/' : '*')} 
+            className="p-4 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl hover:from-orange-500 hover:to-orange-600 transition-all duration-200 text-xl font-medium shadow-lg shadow-orange-500/20"
           >
-            {num}
+            {op}
           </button>
         ))}
-        <button onClick={() => handleOperator('-')} className="p-4 bg-orange-500 text-white rounded hover:bg-orange-600 text-lg sm:text-xl">
-          -
-        </button>
         
-        {[4, 5, 6].map((num) => (
+        {[7, 8, 9, '-', 4, 5, 6, '+', 1, 2, 3, '='].map((item) => (
           <button
-            key={num}
-            onClick={() => handleNumber(num.toString())}
-            className={`p-4 rounded hover:bg-gray-100 shadow-sm text-lg sm:text-xl ${
-              isDarkMode ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
+            key={item}
+            onClick={() => {
+              if (typeof item === 'number') handleNumber(item.toString());
+              else if (item === '=') handleCalculate();
+              else handleOperator(item);
+            }}
+            className={`p-4 rounded-xl transition-all duration-200 text-lg font-medium ${
+              typeof item === 'string' && item !== '=' 
+                ? 'bg-gradient-to-br from-orange-400 to-orange-500 text-white hover:from-orange-500 hover:to-orange-600 shadow-lg shadow-orange-500/20'
+                : item === '='
+                ? 'row-span-2 bg-gradient-to-br from-orange-400 to-orange-500 text-white hover:from-orange-500 hover:to-orange-600 shadow-lg shadow-orange-500/20'
+                : isDarkMode
+                ? 'bg-gray-700 hover:bg-gray-600 text-white shadow-lg shadow-gray-900/30'
+                : 'bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-lg shadow-gray-200/50'
             }`}
           >
-            {num}
+            {item}
           </button>
         ))}
-        <button onClick={() => handleOperator('+')} className="p-4 bg-orange-500 text-white rounded hover:bg-orange-600 text-lg sm:text-xl">
-          +
-        </button>
-        
-        {[1, 2, 3].map((num) => (
-          <button
-            key={num}
-            onClick={() => handleNumber(num.toString())}
-            className={`p-4 rounded hover:bg-gray-100 shadow-sm text-lg sm:text-xl ${
-              isDarkMode ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
-            }`}
-          >
-            {num}
-          </button>
-        ))}
-        <button onClick={handleCalculate} className="row-span-2 p-4 bg-orange-500 text-white rounded hover:bg-orange-600 text-lg sm:text-xl">
-          =
-        </button>
         
         <button
           onClick={() => handleNumber('0')}
-          className={`col-span-2 p-4 rounded hover:bg-gray-100 shadow-sm text-lg sm:text-xl ${
-            isDarkMode ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
+          className={`col-span-2 p-4 rounded-xl transition-all duration-200 text-lg font-medium ${
+            isDarkMode
+              ? 'bg-gray-700 hover:bg-gray-600 text-white shadow-lg shadow-gray-900/30'
+              : 'bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-lg shadow-gray-200/50'
           }`}
         >
           0
         </button>
         <button
           onClick={() => handleNumber('.')}
-          className={`p-4 rounded hover:bg-gray-100 shadow-sm text-lg sm:text-xl ${
-            isDarkMode ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
+          className={`p-4 rounded-xl transition-all duration-200 text-lg font-medium ${
+            isDarkMode
+              ? 'bg-gray-700 hover:bg-gray-600 text-white shadow-lg shadow-gray-900/30'
+              : 'bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-lg shadow-gray-200/50'
           }`}
         >
           .
