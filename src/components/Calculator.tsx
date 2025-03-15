@@ -63,7 +63,7 @@ export default function Calculator() {
       <div className="grid grid-cols-4 gap-3">
         <button 
           onClick={handleClear} 
-          className="col-span-2 p-4 bg-gradient-to-br from-red-400 to-red-500 text-white rounded-xl hover:from-red-500 hover:to-red-600 transition-all duration-200 text-lg font-medium shadow-lg shadow-red-500/20"
+          className="col-span-2 p-4 bg-gradient-to-br from-red-400 to-red-500 text-white rounded-xl hover:from-red-500 hover:to-red-600 transition-all duration-200 text-lg font-medium shadow-lg shadow-red-500/20 cursor-pointer"
         >
           AC
         </button>
@@ -71,7 +71,7 @@ export default function Calculator() {
           <button 
             key={op}
             onClick={() => handleOperator(op === '÷' ? '/' : '*')} 
-            className="p-4 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl hover:from-orange-500 hover:to-orange-600 transition-all duration-200 text-xl font-medium shadow-lg shadow-orange-500/20"
+            className="p-4 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl hover:from-orange-500 hover:to-orange-600 transition-all duration-200 text-xl font-medium shadow-lg shadow-orange-500/20 cursor-pointer"
           >
             {op}
           </button>
@@ -85,7 +85,7 @@ export default function Calculator() {
               else if (item === '=') handleCalculate();
               else handleOperator(item);
             }}
-            className={`p-4 rounded-xl transition-all duration-200 text-lg font-medium ${
+            className={`p-4 rounded-xl transition-all duration-200 text-lg font-medium cursor-pointer ${
               typeof item === 'string' && item !== '=' 
                 ? 'bg-gradient-to-br from-orange-400 to-orange-500 text-white hover:from-orange-500 hover:to-orange-600 shadow-lg shadow-orange-500/20'
                 : item === '='
@@ -101,7 +101,7 @@ export default function Calculator() {
         
         <button
           onClick={() => handleNumber('0')}
-          className={`col-span-2 p-4 rounded-xl transition-all duration-200 text-lg font-medium ${
+          className={`col-span-2 p-4 rounded-xl transition-all duration-200 text-lg font-medium cursor-pointer ${
             isDarkMode
               ? 'bg-gray-700 hover:bg-gray-600 text-white shadow-lg shadow-gray-900/30'
               : 'bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-lg shadow-gray-200/50'
@@ -111,7 +111,7 @@ export default function Calculator() {
         </button>
         <button
           onClick={() => handleNumber('.')}
-          className={`p-4 rounded-xl transition-all duration-200 text-lg font-medium ${
+          className={`p-4 rounded-xl transition-all duration-200 text-lg font-medium cursor-pointer ${
             isDarkMode
               ? 'bg-gray-700 hover:bg-gray-600 text-white shadow-lg shadow-gray-900/30'
               : 'bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-lg shadow-gray-200/50'
